@@ -1,0 +1,30 @@
+{
+  "app_name": "Base Source Flutter",
+  "welcome": "Welcome to Base Source Flutter",
+  "home": "Home",
+  "settings": "Settings",
+  "language": "Language",
+  "theme": "Theme",
+  "dark_mode": "Dark Mode",
+  "light_mode": "Light Mode",
+  "system_mode": "System Mode",
+  "english": "English",
+  "vietnamese": "Vietnamese",
+  "logout": "Logout",
+  "login": "Login",
+  "email": "Email",
+  "password": "Password",
+  "forgot_password": "Forgot Password?",
+  "register": "Register",
+  "name": "Name",
+  "confirm_password": "Confirm Password",
+  "error": {
+    "general": "Something went wrong",
+    "network": "Network error",
+    "server": "Server error",
+    "unauthorized": "Unauthorized",
+    "not_found": "Not found",
+    "validation": "Validation error",
+    "timeout": "Request timeout"
+  }
+}
