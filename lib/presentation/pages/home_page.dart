@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../core/localization/app_localizations.dart';
+import 'ad_example_page.dart';
 import 'load_more_example_page.dart';
 import 'settings_page.dart';
 
@@ -51,6 +52,16 @@ class HomePage extends StatelessWidget {
                 );
               },
               child: const Text('Load More Examples'),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AdExamplePage()),
+                );
+              },
+              child: const Text('AdMob Examples'),
             ),
           ],
         ),

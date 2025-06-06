@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'core/di/injection_container.dart' as di;
 import 'core/localization/app_localizations.dart';
 import 'core/theme/app_theme.dart';
+import 'core/utils/ad_utils.dart';
 import 'presentation/blocs/language/language.dart';
 import 'presentation/blocs/theme/theme.dart';
 import 'presentation/pages/home_page.dart';
@@ -21,6 +22,9 @@ void main() async {
 
   // Initialize dependency injection
   await di.init();
+
+  // Initialize AdMob
+  await AdUtils.initialize();
 
   runApp(const MyApp());
 }
