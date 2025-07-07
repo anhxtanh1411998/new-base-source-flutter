@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -9,13 +11,43 @@ import 'package:new_base_source_flutter/presentation/blocs/theme/theme.dart';
 class MockSharedPreferences extends Mock implements SharedPreferences {}
 // ignore: must_be_immutable
 class MockThemeBloc extends Mock implements ThemeBloc {
+  final _stateController = StreamController<ThemeState>.broadcast();
+
+  MockThemeBloc() {
+    _stateController.add(const ThemeState(themeMode: ThemeMode.light));
+  }
+
   @override
   ThemeState get state => const ThemeState(themeMode: ThemeMode.light);
+
+  @override
+  Stream<ThemeState> get stream => _stateController.stream;
+
+  @override
+  Future<void> close() {
+    _stateController.close();
+    return Future.value();
+  }
 }
 // ignore: must_be_immutable
 class MockLanguageBloc extends Mock implements LanguageBloc {
+  final _stateController = StreamController<LanguageState>.broadcast();
+
+  MockLanguageBloc() {
+    _stateController.add(const LanguageState(locale: Locale('en')));
+  }
+
   @override
   LanguageState get state => const LanguageState(locale: Locale('en'));
+
+  @override
+  Stream<LanguageState> get stream => _stateController.stream;
+
+  @override
+  Future<void> close() {
+    _stateController.close();
+    return Future.value();
+  }
 
   static List<Locale> getSupportedLocales() {
     return [const Locale('en'), const Locale('vi')];
