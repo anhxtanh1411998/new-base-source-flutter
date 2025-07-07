@@ -85,17 +85,17 @@ class _AdExamplePageState extends State<AdExamplePage> {
   }
 
   Future<void> _showInterstitialAd() async {
-    final currentContext = context;
-
     final shown = await AdInterstitialHelper.showAdIfAvailable();
     if (!shown) {
       if (!mounted) return;
 
-      ScaffoldMessenger.of(currentContext).showSnackBar(
-        const SnackBar(
-          content: Text('Interstitial ad not ready yet. Try again later.'),
-        ),
-      );
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Interstitial ad not ready yet. Try again later.'),
+          ),
+        );
+      }
 
       AdInterstitialHelper.loadAd();
     }
