@@ -8,13 +8,19 @@ import 'package:new_base_source_flutter/presentation/blocs/theme/theme.dart';
 // Tạo các mock class cho các dependency cần thiết
 class MockSharedPreferences extends Mock implements SharedPreferences {}
 // ignore: must_be_immutable
-class MockThemeBloc extends Mock implements ThemeBloc {}
+class MockThemeBloc extends Mock implements ThemeBloc {
+  @override
+  ThemeState get state => const ThemeState(themeMode: ThemeMode.light);
+}
 // ignore: must_be_immutable
-class MockLanguageBloc extends Mock implements LanguageBloc {}
-// ignore: must_be_immutable
-class MockThemeState extends Mock implements ThemeState {}
-// ignore: must_be_immutable
-class MockLanguageState extends Mock implements LanguageState {}
+class MockLanguageBloc extends Mock implements LanguageBloc {
+  @override
+  LanguageState get state => const LanguageState(locale: Locale('en'));
+
+  static List<Locale> getSupportedLocales() {
+    return [const Locale('en'), const Locale('vi')];
+  }
+}
 
 // Khởi tạo GetIt cho testing
 final GetIt slTest = GetIt.instance;
@@ -29,24 +35,7 @@ Future<void> setupTestInjection() async {
     await slTest.reset();
   }
 
-  // Mock các blocs
+  // Đăng ký các mock blocs
   slTest.registerFactory<ThemeBloc>(() => MockThemeBloc());
   slTest.registerFactory<LanguageBloc>(() => MockLanguageBloc());
-
-  // Setup mock behavior nếu cần thiết
-  final themeBloc = slTest<ThemeBloc>();
-  final languageBloc = slTest<LanguageBloc>();
-
-  // Tạo các instance của State mà không sử dụng constructor trực tiếp
-  final themeState = MockThemeState();
-  final languageState = MockLanguageState();
-
-  // Mock ThemeState
-  when(themeBloc.state).thenReturn(themeState);
-  when(themeState.themeMode).thenReturn(ThemeMode.light);
-
-  // Mock LanguageState
-  when(languageBloc.state).thenReturn(languageState);
-  when(languageState.locale).thenReturn(const Locale('en'));
-  when(LanguageBloc.getSupportedLocales()).thenReturn([const Locale('en'), const Locale('vi')]);
 }
