@@ -3,13 +3,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:new_base_source_flutter/presentation/blocs/language/language_bloc.dart';
-import 'package:new_base_source_flutter/presentation/blocs/theme/theme_bloc.dart';
+import 'package:new_base_source_flutter/presentation/blocs/language/language.dart';
+import 'package:new_base_source_flutter/presentation/blocs/theme/theme.dart';
 
 // Tạo các mock class cho các dependency cần thiết
 class MockSharedPreferences extends Mock implements SharedPreferences {}
 class MockThemeBloc extends Mock implements ThemeBloc {}
 class MockLanguageBloc extends Mock implements LanguageBloc {}
+class MockThemeState extends Mock implements ThemeState {}
+class MockLanguageState extends Mock implements LanguageState {}
 
 // Khởi tạo GetIt cho testing
 final GetIt slTest = GetIt.instance;
@@ -29,10 +31,16 @@ Future<void> setupTestInjection() async {
   final themeBloc = slTest<ThemeBloc>();
   final languageBloc = slTest<LanguageBloc>();
 
+  // Tạo các instance của State mà không sử dụng constructor trực tiếp
+  final themeState = MockThemeState();
+  final languageState = MockLanguageState();
+
   // Mock ThemeState
-  when(themeBloc.state).thenReturn(const ThemeState(themeMode: ThemeMode.light));
+  when(themeBloc.state).thenReturn(themeState);
+  when(themeState.themeMode).thenReturn(ThemeMode.light);
 
   // Mock LanguageState
-  when(languageBloc.state).thenReturn(const LanguageState(locale: Locale('en')));
+  when(languageBloc.state).thenReturn(languageState);
+  when(languageState.locale).thenReturn(const Locale('en'));
   when(LanguageBloc.getSupportedLocales()).thenReturn([const Locale('en'), const Locale('vi')]);
 }
