@@ -23,10 +23,10 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
 
   Future<void> _loadSavedLanguage() async {
     final prefs = await SharedPreferences.getInstance();
-    final languageCode = prefs.getString(languageCode);
+    final langCode = prefs.getString(languageCode);
     
-    if (languageCode != null) {
-      add(ChangeLanguageEvent(Locale(languageCode)));
+    if (langCode != null) {
+      add(ChangeLanguageEvent(Locale(langCode)));
     }
   }
 
