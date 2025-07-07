@@ -8,7 +8,7 @@ import 'language_event.dart';
 import 'language_state.dart';
 
 class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
-  static const String LANGUAGE_CODE = 'languageCode';
+  static const String languageCode = 'languageCode';
 
   LanguageBloc() : super(LanguageState.initial()) {
     on<ChangeLanguageEvent>(_onChangeLanguage);
@@ -17,13 +17,13 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
 
   void _onChangeLanguage(ChangeLanguageEvent event, Emitter<LanguageState> emit) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(LANGUAGE_CODE, event.locale.languageCode);
+    await prefs.setString(languageCode, event.locale.languageCode);
     emit(state.copyWith(locale: event.locale));
   }
 
   Future<void> _loadSavedLanguage() async {
     final prefs = await SharedPreferences.getInstance();
-    final languageCode = prefs.getString(LANGUAGE_CODE);
+    final languageCode = prefs.getString(languageCode);
     
     if (languageCode != null) {
       add(ChangeLanguageEvent(Locale(languageCode)));

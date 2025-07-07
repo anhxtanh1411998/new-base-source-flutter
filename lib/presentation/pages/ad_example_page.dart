@@ -65,13 +65,12 @@ class _AdExamplePageState extends State<AdExamplePage> {
                 final shown = await AdInterstitialHelper.showAdIfAvailable();
                 if (!shown) {
                   // If ad wasn't shown, show a snackbar
-                  if (mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Interstitial ad not ready yet. Try again later.'),
-                      ),
-                    );
-                  }
+                  if (!mounted) return;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Interstitial ad not ready yet. Try again later.'),
+                    ),
+                  );
                   // Preload for next time
                   AdInterstitialHelper.loadAd();
                 }
@@ -105,13 +104,12 @@ class _AdExamplePageState extends State<AdExamplePage> {
                 
                 if (!shown) {
                   // If ad wasn't shown, show a snackbar
-                  if (mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Rewarded ad not ready yet. Try again later.'),
-                      ),
-                    );
-                  }
+                  if (!mounted) return;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Rewarded ad not ready yet. Try again later.'),
+                    ),
+                  );
                   // Preload for next time
                   AdRewardedHelper.loadAd();
                 }
