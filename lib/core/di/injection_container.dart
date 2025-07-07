@@ -16,7 +16,7 @@ import '../../presentation/blocs/theme/theme.dart';
 import '../network/api_client.dart';
 import '../network/network_info.dart';
 
-final GetIt sl = GetIt.instance;
+final GetIt sl = GetIt.instance();
 
 Future<void> init() async {
   // External
