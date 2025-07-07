@@ -12,7 +12,10 @@ import 'package:new_base_source_flutter/core/di/injection_container.dart' as di;
 import 'package:new_base_source_flutter/main.dart';
 
 void main() async {
-  // Khởi tạo dependency injection trước khi chạy test
+  // Khởi tạo Flutter binding cho testing
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  // Khởi tạo dependency injection
   await di.init();
 
   testWidgets('App renders successfully', (WidgetTester tester) async {
