@@ -37,6 +37,9 @@ void main() async {
       ),
     );
 
+    // Đợi cho animation hoàn tất
+    await tester.pumpAndSettle();
+
     // Kiểm tra xem app có render thành công không
     expect(find.byType(MaterialApp), findsOneWidget);
     expect(find.text('Hello Test'), findsOneWidget);

@@ -26,6 +26,9 @@ void main() async {
       ),
     );
 
+    // Đợi cho animation và render hoàn tất
+    await tester.pumpAndSettle();
+
     // Kiểm tra xem HomePage có render thành công không
     expect(find.byType(HomePage), findsOneWidget);
   });

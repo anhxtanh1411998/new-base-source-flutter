@@ -12,13 +12,14 @@ class MockSharedPreferences extends Mock implements SharedPreferences {}
 // ignore: must_be_immutable
 class MockThemeBloc extends Mock implements ThemeBloc {
   final _stateController = StreamController<ThemeState>.broadcast();
+  final ThemeState _currentState = const ThemeState(themeMode: ThemeMode.light);
 
   MockThemeBloc() {
-    _stateController.add(const ThemeState(themeMode: ThemeMode.light));
+    _stateController.add(_currentState);
   }
 
   @override
-  ThemeState get state => const ThemeState(themeMode: ThemeMode.light);
+  ThemeState get state => _currentState;
 
   @override
   Stream<ThemeState> get stream => _stateController.stream;
@@ -32,13 +33,14 @@ class MockThemeBloc extends Mock implements ThemeBloc {
 // ignore: must_be_immutable
 class MockLanguageBloc extends Mock implements LanguageBloc {
   final _stateController = StreamController<LanguageState>.broadcast();
+  final LanguageState _currentState = const LanguageState(locale: Locale('en'));
 
   MockLanguageBloc() {
-    _stateController.add(const LanguageState(locale: Locale('en')));
+    _stateController.add(_currentState);
   }
 
   @override
-  LanguageState get state => const LanguageState(locale: Locale('en'));
+  LanguageState get state => _currentState;
 
   @override
   Stream<LanguageState> get stream => _stateController.stream;
