@@ -16,7 +16,7 @@ class AdExamplePage extends StatefulWidget {
 }
 
 class _AdExamplePageState extends State<AdExamplePage> {
-  int _rewardPoints = 0;
+  final _rewardPoints = 0;
 
   @override
   void initState() {
