@@ -190,7 +190,64 @@ Run tests with:
 ```
 flutter test
 ```
+# New Base Source Flutter
 
+## Giới thiệu
+
+Template dự án Flutter với các tính năng cơ bản.
+
+## Cài đặt
+
+1. Đảm bảo Flutter đã được cài đặt đúng cách:
+   ```
+   flutter doctor -v
+   ```
+
+2. Cài đặt các gói phụ thuộc:
+   ```
+   flutter pub get
+   ```
+
+## Khắc phục lỗi Flutter Tester
+
+Nếu bạn gặp lỗi "Failed to find flutter_tester in the search path", hãy thử các bước sau:
+
+1. Chạy script khắc phục:
+   ```
+   chmod +x fix_flutter_setup.sh
+   ./fix_flutter_setup.sh
+   ```
+
+2. Khôi phục cache Flutter:
+   ```
+   flutter precache
+   ```
+
+3. Xóa bộ nhớ cache và tải lại các gói:
+   ```
+   flutter clean
+   flutter pub get
+   ```
+
+4. Kiểm tra lại với Flutter doctor:
+   ```
+   flutter doctor -v
+   ```
+
+## Cấu trúc dự án
+
+- `/lib`: Mã nguồn chính
+  - `/core`: Các thành phần cốt lõi (tiện ích, chủ đề, định cấu hình)
+  - `/presentation`: UI và trạng thái (blocs, pages, widgets)
+- `/assets`: Tài nguyên (hình ảnh, biểu tượng, phông chữ)
+- `/test`: Kiểm thử
+
+## Tính năng
+
+- Quản lý trạng thái với Bloc
+- Đa ngôn ngữ (tiếng Anh, tiếng Việt)
+- Chế độ sáng/tối
+- Tích hợp quảng cáo Google AdMob
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
