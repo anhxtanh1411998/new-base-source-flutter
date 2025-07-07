@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -25,3 +25,9 @@ jobs:
 
       - name: Run tests
         run: flutter test
+
+      - name: Build IPA
+        run: flutter build ipa --release
+
+      - name: Build APK
+        run: flutter build apk --release
