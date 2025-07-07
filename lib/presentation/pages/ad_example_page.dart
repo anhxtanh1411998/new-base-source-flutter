@@ -61,22 +61,7 @@ class _AdExamplePageState extends State<AdExamplePage> {
             const SizedBox(height: 10),
             CustomButton(
               text: 'Show Interstitial Ad',
-              onPressed: () async {
-                final currentContext = context;
-
-                final shown = await AdInterstitialHelper.showAdIfAvailable();
-                if (!shown) {
-                  if (!mounted) return;
-
-                  ScaffoldMessenger.of(currentContext).showSnackBar(
-                    const SnackBar(
-                      content: Text('Interstitial ad not ready yet. Try again later.'),
-                    ),
-                  );
-
-                  AdInterstitialHelper.loadAd();
-                }
-              },
+              onPressed: _showInterstitialAd,
             ),
             const SizedBox(height: 20),
             
@@ -87,37 +72,7 @@ class _AdExamplePageState extends State<AdExamplePage> {
             const SizedBox(height: 10),
             CustomButton(
               text: 'Show Rewarded Ad',
-              onPressed: () async {
-                final shown = await AdRewardedHelper.showAdIfAvailable(
-                  onUserEarnedReward: (reward) {
-                    setState(() {
-                      _rewardPoints += reward.amount.toInt();
-                    });
-                    
-                    if (mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('You earned ${reward.amount} reward points!'),
-                        ),
-                      );
-                    }
-                  },
-                );
-                
-                if (!shown) {
-                  final currentContext = context;
-
-                  // If ad wasn't shown, show a snackbar
-                  if (!mounted) return;
-                  ScaffoldMessenger.of(currentContext).showSnackBar(
-                    const SnackBar(
-                      content: Text('Rewarded ad not ready yet. Try again later.'),
-                    ),
-                  );
-                  // Preload for next time
-                  AdRewardedHelper.loadAd();
-                }
-              },
+              onPressed: _showInterstitialAd,
             ),
           ],
         ),
@@ -127,5 +82,22 @@ class _AdExamplePageState extends State<AdExamplePage> {
         adSize: AdSize.banner,
       ),
     );
+  }
+
+  Future<void> _showInterstitialAd() async {
+    final currentContext = context;
+
+    final shown = await AdInterstitialHelper.showAdIfAvailable();
+    if (!shown) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(currentContext).showSnackBar(
+        const SnackBar(
+          content: Text('Interstitial ad not ready yet. Try again later.'),
+        ),
+      );
+
+      AdInterstitialHelper.loadAd();
+    }
   }
 }
