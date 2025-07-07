@@ -7,22 +7,38 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:new_base_source_flutter/core/di/injection_container.dart' as di;
+import 'package:new_base_source_flutter/presentation/blocs/language/language.dart';
+import 'package:new_base_source_flutter/presentation/blocs/theme/theme.dart';
 
-import 'package:new_base_source_flutter/main.dart';
+import 'mocks/mock_dependencies.dart';
+import 'test_app_widget.dart';
 
 void main() async {
-  // Khởi tạo Flutter binding cho testing
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  // Khởi tạo dependency injection
-  await di.init();
+  // Cài đặt mock dependencies cho test
+  await setupTestInjection();
 
   testWidgets('App renders successfully', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    // Lấy các mock bloc từ dependency injection
+    final themeBloc = slTest<ThemeBloc>();
+    final languageBloc = slTest<LanguageBloc>();
+
+    // Build test app widget
+    await tester.pumpWidget(
+      TestAppWidget(
+        themeBloc: themeBloc,
+        languageBloc: languageBloc,
+        child: const Scaffold(
+          body: Center(
+            child: Text('Hello Test'),
+          ),
+        ),
+      ),
+    );
 
     // Kiểm tra xem app có render thành công không
     expect(find.byType(MaterialApp), findsOneWidget);
+    expect(find.text('Hello Test'), findsOneWidget);
   });
 }
